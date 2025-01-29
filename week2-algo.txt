@@ -1,0 +1,28 @@
+ALGORITHM:
+1. Start the program.
+2. Declare all necessary header files.
+   - Include <stdio.h>, <string.h>, and <ctype.h>.
+3. Define the main function.
+4. Declare the variables:
+   - Declare a 2D array t for the transition table with a size of MAX_SIZE x MAX_SIZE.
+   - Initialize variables r and i to 0.
+5. Use a for loop within another for loop to initialize the matrix for NFA states:
+   - Set all elements of the transition table t to '\0' (empty characters).
+6. Get a regular expression from the user & store it in regex.
+7. Obtain the length of the expression using strlen() function and store it in n.
+8. Use a while loop to iterate through the string up to the length n and follow steps 9 to 12.
+9. Use switch case to check each character of the expression:
+   - Evaluate regex[i].
+10. If case is '*':
+    - Set the links in the transition table according to the rules for Kleene closure.
+11. If case is '+':
+    - Set the links in the transition table according to the rules for one or more occurrences.
+12. Check the default case (for single alphabet or two consecutive alphabets):
+    - Set the links in the transition table to the respective alphabet(s).
+13. End the switch case.
+14. Use a for loop to print the states along the matrix:
+    - Print the header for the transition table.
+15. Use a nested for loop to print the value of respective links in the transition table:
+    - Iterate through the transition table and print each transition.
+16. Print the start state as 0 and the final state as r. 
+17. End the program.

@@ -1,0 +1,17 @@
+ALGORITHM:
+1. Start the program and include necessary header files (`stdio.h`, `string.h`, `stdbool.h`).  
+2. Define structures to store NFA and DFA data:  
+   - `NFATransitionTable`: Stores NFA transitions in a 2D array.  
+   - `DFAState`: Represents a DFA state with a state name and a processed flag.  
+   - `DFATransitionTable`: Stores DFA transitions and a list of discovered DFA states.   
+3. Initialize NFA by taking the number of states, input symbols, and transition table.  
+4. Compute ε-closure for each NFA state recursively.  
+5. Create the initial DFA state using the ε-closure of the NFA start state.  
+6. Iterate through DFA states and process each unmarked state 
+    - Compute its transitions for each input symbol.  .  
+7. For each input symbol, compute the next state by merging transitions.  
+8. Compute ε-closure of the resulting set to form a new DFA state.  
+9. If the new state is not in DFA, add it to the DFA state list.  
+10. Store transitions in the DFA transition table for each state and symbol.  
+11. Print DFA transition table, marking the start and final states.  
+12. End the program.

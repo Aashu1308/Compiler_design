@@ -1,0 +1,33 @@
+ALGORITHM
+1. Start the program and include necessary header files (`stdio.h`, `string.h`, `ctype.h`).  
+2. Declare global variables:  
+   - `input[100]` for storing the input expression.  
+   - `pos` to track the current position.  
+3. Define recursive functions for grammar rules:  
+   - `E() -> TE'`, `EP() -> +TE' | ε`.  
+   - `T() -> FT'`, `TP() -> *FT' | ε`.  
+   - `F() -> (E) | ID`.  
+4. Prompt the user to enter an expression ending with `$`.  
+5. Initialize `pos = 0` to start parsing from the first character.  
+6. Call `E()` to begin parsing the expression.  
+7. Check if parsing is successful and the last character is `$`.  
+8. If `E()` returns true and `input[pos] == '$'`:  
+   - Print `"String is accepted"`.  
+9. Else, print `"String is not accepted"`.  
+10. Define `E()`:  
+    - Calls `T()`, then `EP()`.  
+    - Returns 1 if both succeed.  
+11. Define `EP()`:  
+    - If `+` is found, consume it and call `T()` and `EP()`.  
+    - If not found, return 1 (ε production).  
+12. Define `T()`:  
+    - Calls `F()`, then `TP()`.  
+    - Returns 1 if both succeed.  
+13. Define `TP()`:  
+    - If `*` is found, consume it and call `F()` and `TP()`.  
+    - If not found, return 1 (ε production).  
+14. Define `F()`:  
+    - If `(` is found, parse an inner `E()` and check for `)`.  
+    - If an `ID` (alphabet) is found, consume it.  
+    - Otherwise, return 0 (invalid input).  
+15. End the program.

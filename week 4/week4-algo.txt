@@ -1,0 +1,19 @@
+ALGORITHM:
+1. Start the program and include required headers (`stdio.h`, `string.h`).  
+2. Declare necessary variables:  
+   - Strings for storing input production, left & right-hand sides.  
+   - Arrays for modified productions.  
+   - Counters (`i, j`), a flag for left recursion, and `consumed` to track progress.  
+3. Read the production rule from the user in the format `A->aA|b`.  
+4. Split the production into `l` (left-hand side) and `r` (right-hand side).  
+5. Iterate over `r` to extract individual right-hand expressions separated by `|`.  
+6. For each extracted expression (`temp`):  
+   - Check if `temp` starts with `l[0]` (i.e., left-recursive).  
+   - If yes, transform it into `A'-> rest_of_temp A'`.  
+   - If no, transform it into `A-> temp A'`.  
+7. Continue processing `r` by moving `consumed` forward to read the next part.  
+8. If left recursion was found (`flag == 1`):  
+   - Append `A'-> ε` to handle termination.  
+9. Print the updated grammar with left recursion removed.  
+10. If no left recursion is found, print a message stating so.  
+11. End the program.

@@ -25,13 +25,13 @@ void regex_to_nfa(char *regex)
         if (regex[i] == '|')
         {
             // Handle OR operation
-            t[0][1] = 'E';
-            t[1][2] = regex[i - 1];
-            t[2][5] = 'E';
-            t[0][3] = 'E';
-            t[3][4] = regex[i + 1];
-            t[4][5] = 'E';
-            r = 5; // Set r to 5 for OR operation
+            t[r][r + 1] = 'E';
+            t[r + 1][r + 2] = regex[i - 1];
+            t[r + 2][r + 5] = 'E';
+            t[r][r + 3] = 'E';
+            t[r + 3][r + 4] = regex[i + 1];
+            t[r + 4][r + 5] = 'E';
+            r += 5; // Set r to 5 for OR operation
             i += 2;
         }
         else if (regex[i] == '*')

@@ -1,0 +1,40 @@
+ALGORITHM
+ 1. Initialization
+- Include necessary headers: `stdio.h`, `string.h`, `ctype.h`, `stdbool.h`.
+- Define a `Production` structure with:
+  - `left` (non-terminal).
+  - `right[]` (production rule).
+- Declare arrays for:
+  - `grammar[]` (grammar rules).
+  - `firstSets[]`, `followSets[]` (FIRST and FOLLOW sets).
+  - `firstResult[]`, `followResult[]` (temporary storage).
+- Initialize:
+  - `numProductions`, `firstCount`, and `followCount`.
+ 2. Input Grammar
+- Store productions in `grammar[]`, using `` for ε.
+ 3. Compute FIRST Sets
+- For each production:
+  - Add terminal to `FIRST(X)` if the first symbol is a terminal.
+  - Recursively compute `FIRST(Y)` if it's a non-terminal.
+  - If ε is in `FIRST(Y)`, continue to the next symbol.
+- Store unique values in `firstSets[]` and print.
+ 4. Compute FOLLOW Sets
+- Add `$` to `FOLLOW(S)` for the start symbol.
+- For each occurrence of non-terminal X:
+  - Add terminal if followed by one.
+  - Add `FIRST(Y) - {ε}` if followed by non-terminal Y.
+  - If Y contains ε, add `FOLLOW(LHS)` to `FOLLOW(X)`.
+- Store unique values in `followSets[]` and print.
+ 5. Helper Functions
+- `calculateFirst(char symbol, int currentProd, int currentPos)`:
+  - Add terminal to `firstResult[]`.
+  - Recursively find FIRST set for non-terminals, handling ε separately.
+- `calculateFollow(char symbol)`:
+  - Add `$` for start symbol.
+  - Apply FOLLOW rules across productions.
+- `calculateFollowFirst(char symbol, int prodIndex, int pos)`:
+  - Add terminal to `followResult[]`.
+  - Add `FIRST(symbol) - {ε}` to FOLLOW of non-terminals.
+  - Propagate FOLLOW from LHS if ε is present.
+ 6. Program Termination
+- End the program.

@@ -1,0 +1,55 @@
+Simplified 6-Step Algorithm
+
+1.Start: Input grammar productions and initialize stack with $ and start symbol.
+2.Build Table: Compute FIRST and FOLLOW sets, then create LL(1) parsing table.
+3.Set Input: Take input string (ending with $), point to first symbol.
+4.Parse: While stack isn’t empty:
+If top is terminal or $, match with input and pop; else error.
+If top is non-terminal, use table to replace with production (or ε).
+5.Check Result: If stack and input both end at $, accept; else reject.
+6.End: Output result and stop.
+
+ALGORITHM: LL(1) Parsing
+
+Start the Program:
+Initialize the program, input the number of productions, and read the grammar productions (e.g., E=TR, R=+TR, etc.).
+Compute FIRST and FOLLOW Sets:
+Calculate the FIRST sets for all non-terminals and productions, then compute the FOLLOW sets based on the grammar rules.
+Build the LL(1) Parsing Table:
+Construct the parsing table using the FIRST and FOLLOW sets, mapping each non-terminal and terminal pair to the appropriate production (or ε where applicable).
+Initialize Parsing:
+Assign the input string (e.g., a+a$), set the input pointer (i_ptr) to the first symbol, and initialize the stack with $ followed by the start symbol (e.g., $E).
+Parse the Input:
+Repeat the following until the stack is empty or an error occurs:
+Let X be the top symbol of the stack.
+If X is a terminal or $:
+If X matches the current input symbol (input[i_ptr]), pop X from the stack, advance the input pointer, and output "Match X".
+Else, report an error and terminate.
+If X is a non-terminal:
+Look up the production for X and the current input symbol in the parsing table.
+If no production exists, report an error and terminate.
+If the production is X → ε, pop X from the stack and output the production.
+Otherwise, pop X, push the production’s right-hand side (reversed) onto the stack, and output the production (e.g., X → YZ).
+Check Termination Condition:
+If the stack contains only $ and the input pointer points to $, output "Accept" and proceed to terminate. Otherwise, continue parsing.
+Handle Errors:
+If an error occurs (mismatch or no valid production), output "REJECTED" and terminate.
+Terminate the Program:
+End the parsing process and exit the program, displaying the final result ("ACCEPTED" or "REJECTED").
+Example Walkthrough (for a+a$)
+
+Step 1: Start, input grammar: E=TR, R=+TR, R=#, T=a.
+Step 2: FIRST(E) = {a}, FIRST(R) = {+, ε}, FIRST(T) = {a}; FOLLOW(E) = {$}, FOLLOW(R) = {$}, FOLLOW(T) = {+, $}.
+Step 3: Build table: E[a] = E=TR, R[+] = R=+TR, R[$] = R=#, T[a] = T=a.
+Step 4: Input = a+a$, stack = $E, i_ptr = 0 (points to a).
+Step 5:
+Stack = $E, input = a+a$, E[a] = E=TR, pop E, push RT, stack = $RT.
+Stack = $RT, input = a+a$, T[a] = T=a, pop T, push a, stack = $Ra.
+Stack = $Ra, input = a+a$, match a, pop a, stack = $R, advance to +.
+Stack = $R, input = +a$, R[+] = R=+TR, pop R, push RT+, stack = $RT+.
+Stack = $RT+, input = +a$, match +, pop +, stack = $RT, advance to a.
+Stack = $RT, input = a$, T[a] = T=a, pop T, push a, stack = $Ra.
+Stack = $Ra, input = a$, match a, pop a, stack = $R, advance to $.
+Stack = $R, input = $, R[$] = R=#, pop R, stack = $ (ε production, no push).
+Step 6: Stack = $, input = $, accept.
+Step 8: Output "ACCEPTED" and terminate.
